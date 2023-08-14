@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+
+  <title></title>
+</head>
+
+<body>
+<div class="">
+ <div class="font-bold text-2xl text-center">
+  Textshare
+</div>
+<div class="px-2 md:px-8">
+
+<div class="mt-8 text-base font-medium">Paste something here.</div>
+<div></div>
+
+
+
+<div class="p-0.5">
+    <textarea id="noteTextarea" class="w-full h-48 border-2 border-blue-500
+ rounded-md bg-zinc-500 font-mono"></textarea>
+</div>
+<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="submitButton" type="button">Submit</button>
+
+
+<div class="font-bold text-3xl text-center" id="responseDiv"></div>
+
+
+</div>
+
+
+</div>
+
+
+<script>
+    document.getElementById("submitButton").addEventListener("click", function() {
+        var noteData = document.getElementById("noteTextarea").value;
+        fetch("/api/add_note", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "notedata=" + encodeURIComponent(noteData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            var responseDiv = document.getElementById("responseDiv");
+            if (data.error) {
+                responseDiv.innerHTML = data.error;
+            } else {
+                responseDiv.innerHTML = data.note_id;
+		    
+                document.getElementById("noteTextarea").value = "";
+            }
+        });
+    });
+</script>
+</body>
+
+</html>
