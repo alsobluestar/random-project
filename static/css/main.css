@@ -1,0 +1,22 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+
+:root {
+ --font-color: black;
+ --bg-color: hsl(220, 38%, 93%);
+}
+
+body {
+ font-size: calc(10px + 0.33vw);
+ font-family: 'Roboto Mono', monospace;
+ scroll-behavior: smooth;
+ user-select: none;
+ color: var(--font-color-light);
+ background-color: var(--bg-color);
+ overflow-x: hidden;
+ @media screen and (prefers-color-scheme: dark) {
+  color: #ffffff;
+  background-color: hsl(206, 54%, 7%);
+ }
+}
